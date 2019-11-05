@@ -4,7 +4,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -15,23 +15,34 @@ import javafx.stage.Window;
 
 public class PageInscription extends Application {
 
+    private Group root;
+    private GridPane gridPane;
+    private PageConnexion connexion;
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Page d'inscription");
+        primaryStage.setTitle("Formulaire d'inscription");
 
-        GridPane gridPane = creationVoletFormulaireInscription(); // Créer le volet de formulaire d'inscription
+        root = new Group();
+        gridPane = creationInscription();
 
-        addUIControls(gridPane); //  Ajouter des contrôles d'interface utilisateur au volet Grille du formulaire d'inscription
+        connexion = new PageConnexion(this, root);
+        addUIControls(gridPane);
+        Scene scene = new Scene(root, 800, 650);
 
-        Scene scene = new Scene(gridPane, 800, 500); // Créer une scène avec un volet de grille de formulaire d'inscription en tant que noeud racine
+        afficheInscription();
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
 
-        primaryStage.setScene(scene); // Met en place la scene
+    private void afficheInscription() {
+        root.getChildren().clear();
+        root.getChildren().add(gridPane);
 
-        primaryStage.show(); // On affiche
+
     }
 
 
-    private GridPane creationVoletFormulaireInscription() {
+    private GridPane creationInscription() {
 
         GridPane gridPane = new GridPane();
 
@@ -39,7 +50,6 @@ public class PageInscription extends Application {
 
 
         gridPane.setPadding(new Insets(40, 40, 40, 40));
-
         gridPane.setHgap(10);  // On définit l'espace horizontal entre les colonnes
 
 
@@ -141,7 +151,7 @@ public class PageInscription extends Application {
         gridPane.add(champEmail, 1, 8);
 
         // On ajoute un bouton valider
-        Button buttonValider = new Button("" +
+        Button buttonValider = new Button("Valider" +
                 "");
         buttonValider.setPrefHeight(40);
         buttonValider.setDefaultButton(true);
@@ -150,32 +160,28 @@ public class PageInscription extends Application {
         GridPane.setHalignment(buttonValider, HPos.CENTER);
         GridPane.setMargin(buttonValider, new Insets(20, 0,20,0));
 
-        buttonValider.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(champNom.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Erreur !", "Saisissez votre nom");
-                    return;
-                }
-                if(champEmail.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), " Error!", "Saisissez votre email");
-                    return;
-                }
-                if(champMotDePasse.getText().isEmpty()) {
-                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), " Error!", "Saisissez votre mot de passe");
-                    return;
-                }
+        buttonValider.setOnAction(event -> primaryStage.setScene(scene));
 
-                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Inscription réussi", "Bienvenue " + champNom.getText());
-
-
-
-
-
-
-            }
-
-        });
+        //buttonValider.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+////                if(champNom.getText().isEmpty()) {
+////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Erreur !", "Saisissez votre nom");
+////                    return;
+////                }
+////                if(champEmail.getText().isEmpty()) {
+////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre email");
+////                    return;
+////                }
+////                if(champMotDePasse.getText().isEmpty()) {
+////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre mot de passe");
+////                    return;
+////                }
+////
+////                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Inscription réussi", "Bienvenue " + champLogin.getText());
+//                primaryStage.setScene(scene);
+//            }
+       });
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
