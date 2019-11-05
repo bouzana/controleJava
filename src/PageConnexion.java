@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class PageConnexion {
@@ -19,23 +20,21 @@ public class PageConnexion {
     private Group root;
 
     public PageConnexion(PageInscription inscription, Group root) {
-        this.inscription = inscription;
-        this.root = root;
 
 
-        Scene scene = new Scene(root, 800, 650);
-        primaryStage.setScene(scene);
+            this.inscription = inscription;
+            this.root = root;
         afficheConnexion();
-        primaryStage.show();
-
-    }
-
-    private void afficheConnexion() {
-        root.getChildren().clear();
-        root.getChildren().add(creationConnexion());
 
 
-    }
+        }
+
+        private void afficheConnexion () {
+            root.getChildren().clear();
+            root.getChildren().add(creationConnexion());
+
+
+        }
 
 
 

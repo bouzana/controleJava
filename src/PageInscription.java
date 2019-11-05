@@ -29,7 +29,7 @@ public class PageInscription extends Application {
         connexion = new PageConnexion(this, root);
         addUIControls(gridPane);
         Scene scene = new Scene(root, 800, 650);
-        //afficheConnexion();
+       // afficheConnexion();
         afficheInscription();
         primaryStage.setScene(scene);
         primaryStage.show();
