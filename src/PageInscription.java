@@ -25,10 +25,11 @@ public class PageInscription extends Application {
         root = new Group();
         gridPane = creationInscription();
 
+
         connexion = new PageConnexion(this, root);
         addUIControls(gridPane);
         Scene scene = new Scene(root, 800, 650);
-
+        //afficheConnexion();
         afficheInscription();
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -160,28 +161,26 @@ public class PageInscription extends Application {
         GridPane.setHalignment(buttonValider, HPos.CENTER);
         GridPane.setMargin(buttonValider, new Insets(20, 0,20,0));
 
-        buttonValider.setOnAction(event -> primaryStage.setScene(scene));
+        buttonValider.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(champNom.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Erreur !", "Saisissez votre nom");
+                    return;
+                }
+                if(champEmail.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre email");
+                    return;
+                }
+                if(champMotDePasse.getText().isEmpty()) {
+                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre mot de passe");
+                    return;
+                }
 
-        //buttonValider.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-////                if(champNom.getText().isEmpty()) {
-////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Erreur !", "Saisissez votre nom");
-////                    return;
-////                }
-////                if(champEmail.getText().isEmpty()) {
-////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre email");
-////                    return;
-////                }
-////                if(champMotDePasse.getText().isEmpty()) {
-////                    showAlert(Alert.AlertType.ERROR, gridPane.getScene().getWindow(), "Form Error!", "Saisissez votre mot de passe");
-////                    return;
-////                }
-////
-////                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Inscription réussi", "Bienvenue " + champLogin.getText());
-//                primaryStage.setScene(scene);
-//            }
-       });
+                showAlert(Alert.AlertType.CONFIRMATION, gridPane.getScene().getWindow(), "Inscription réussi", "Bienvenue " + champLogin.getText());
+
+            }
+        });
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {

@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -20,7 +21,23 @@ public class PageConnexion {
     public PageConnexion(PageInscription inscription, Group root) {
         this.inscription = inscription;
         this.root = root;
+
+
+        Scene scene = new Scene(root, 800, 650);
+        primaryStage.setScene(scene);
+        afficheConnexion();
+        primaryStage.show();
+
     }
+
+    private void afficheConnexion() {
+        root.getChildren().clear();
+        root.getChildren().add(creationConnexion());
+
+
+    }
+
+
 
 
     private GridPane creationConnexion() {
